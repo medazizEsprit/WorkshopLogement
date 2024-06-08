@@ -18,6 +18,10 @@ public class FoyerRestController {
     public Foyer ajouterFoyer(@RequestBody Foyer foyer ){
         return foyerService.ajouterFoyer(foyer);
     }
+    @PostMapping(path ="/foyerBlocs")
+    public Foyer ajouterFoyerEnCascadeBlocs(@RequestBody Foyer foyer ){
+        return foyerService.ajouterFoyerEnCascadeBlocs(foyer);
+    }
     @GetMapping("/foyer/{id-foyer}")
     Foyer chercherFoyerParId(@PathVariable("id-foyer") long id){
         return foyerService. chercherFoyerParId(id);

@@ -31,4 +31,17 @@ public class BlocServiceImpl implements IBlocService{
         blocRepo.save(bloc);
         return bloc;
     }
+
+    @Override
+    public Bloc ajouterBlocEnCascade(Bloc bloc) {
+        return blocRepo.save(bloc);
+    }
+
+    @Override
+    public Bloc getBlocById(Long id) {
+        return blocRepo.findById(id).orElse(null);
+    }
+
+
+
 }

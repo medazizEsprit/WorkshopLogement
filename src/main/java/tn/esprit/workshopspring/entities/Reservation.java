@@ -1,15 +1,12 @@
 package tn.esprit.workshopspring.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
+@ToString
 @Entity
 @Getter
 @Setter
@@ -17,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Reservation {
     @Id
-    String idReservation;
+    String numRes;
     LocalDate anneeUniversitaire;
     Boolean estValide;
     @ManyToMany(mappedBy = "reservations")

@@ -1,27 +1,27 @@
 package tn.esprit.workshopspring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Set;
-
+@ToString
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bloc {
+public class Bloc implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 Long idBloc ;
 String nomBloc;
 long capaciteBloc;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     Foyer foyer;
 
     @OneToMany(mappedBy = "bloc")
+            @JsonIgnore
     Set <Chambre> chambres;
 }

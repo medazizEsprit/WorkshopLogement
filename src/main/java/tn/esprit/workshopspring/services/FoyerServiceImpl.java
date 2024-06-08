@@ -1,7 +1,9 @@
 package tn.esprit.workshopspring.services;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.workshopspring.entities.Bloc;
 import tn.esprit.workshopspring.entities.Foyer;
@@ -9,7 +11,7 @@ import tn.esprit.workshopspring.repositories.BlocRepo;
 import tn.esprit.workshopspring.repositories.FoyerRepo;
 
 import java.util.List;
-
+@ToString
 @Slf4j
 @AllArgsConstructor
 @Service
@@ -21,6 +23,12 @@ public class FoyerServiceImpl implements IFoyerService {
         log.info(foyer.toString());
         return foyerRepo.save(foyer);
 
+    }
+
+    @Override
+    public Foyer ajouterFoyerEnCascadeBlocs(Foyer foyer) {
+        foyer.getBlocs().forEach(bloc -> {bloc.setFoyer(foyer);});
+        return foyerRepo.save(foyer);
     }
 
     public Foyer chercherFoyerParId(long id) {
@@ -71,6 +79,17 @@ public class FoyerServiceImpl implements IFoyerService {
         blocRepo.save(bloc);
         return foyerRepo.findFoyerByNomFoyer(nomFoyer);
 
+    }
+
+    //@Scheduled(fixedRate = 5000)  //toutes les 5 secondes
+    //@Scheduled(fixedDelay = 5000) //toutes les 5 secondes + temps de reponse
+    //@Scheduled(cron = "5 * * * * *")// La 5eme seconde de chaque minute/heure/jour/mois/année
+    @Scheduled(cron = "*/60 * * * * *")
+    void recette(){
+        log.info("scheduler ALINFO3");
+//        for(Foyer foyer : foyerRepo.findAll()){
+//            log.info(foyer.toString());
+//        }
     }
 
 }
